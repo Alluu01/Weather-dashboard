@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Weather Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
+    <script src="statistics.js"></script>
+    <script src="script.js"></script>
+
+    
+    
+</head>
+<body>
+    <header>
+        <h1>Personal Weather Dashboard</h1>
+        <nav>
+            <ul>
+                <li><button onclick="showView(1)">View 1</button></li>
+                <li><button onclick="showView(2)">View 2</button></li>
+                <li><button onclick="showView(3)">View 3</button></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="view1" class="weather-view">
+            <div class="weatherVariables" id="weatherVariables">
+                <div>
+                    <h2>Hourly Weather Variables</h2>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="temperature_2m"
+                                id="temperature_2m_hourly"
+                                name="hourly"
+                                checked
+                            />
+                            <label class="form-check-label" for="temperature_2m_hourly"
+                                >Temperature (2 m)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="relative_humidity_2m"
+                                id="relative_humidity_2m_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="relative_humidity_2m_hourly"
+                                >Relative Humidity (2 m)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="dew_point_2m"
+                                id="dew_point_2m_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="dew_point_2m_hourly"
+                                >Dewpoint (2 m)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="apparent_temperature"
+                                id="apparent_temperature_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="apparent_temperature_hourly"
+                                >Apparent Temperature</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="precipitation_probability"
+                                id="precipitation_probability_hourly"
+                                name="hourly"
+                            />
+                            <label
+                                class="form-check-label"
+                                for="precipitation_probability_hourly"
+                                >Precipitation Probability</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="precipitation"
+                                id="precipitation_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="precipitation_hourly"
+                                >Precipitation (rain + showers + snow)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="rain"
+                                id="rain_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="rain_hourly">Rain</label>
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="showers"
+                                id="showers_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="showers_hourly">Showers</label>
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="snowfall"
+                                id="snowfall_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="snowfall_hourly"
+                                >Snowfall</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="snow_depth"
+                                id="snow_depth_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="snow_depth_hourly"
+                                >Snow Depth</label
+                            >
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="weather_code"
+                                id="weather_code_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="weather_code_hourly"
+                                >Weather code</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="pressure_msl"
+                                id="pressure_msl_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="pressure_msl_hourly"
+                                >Sealevel Pressure</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="surface_pressure"
+                                id="surface_pressure_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="surface_pressure_hourly"
+                                >Surface Pressure</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="cloud_cover"
+                                id="cloud_cover_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="cloud_cover_hourly"
+                                >Cloud cover Total</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="cloud_cover_low"
+                                id="cloud_cover_low_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="cloud_cover_low_hourly"
+                                >Cloud cover Low</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="cloud_cover_mid"
+                                id="cloud_cover_mid_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="cloud_cover_mid_hourly"
+                                >Cloud cover Mid</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="cloud_cover_high"
+                                id="cloud_cover_high_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="cloud_cover_high_hourly"
+                                >Cloud cover High</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="visibility"
+                                id="visibility_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="visibility_hourly"
+                                >Visibility</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="evapotranspiration"
+                                id="evapotranspiration_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="evapotranspiration_hourly"
+                                >Evapotranspiration</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="et0_fao_evapotranspiration"
+                                id="et0_fao_evapotranspiration_hourly"
+                                name="hourly"
+                            />
+                            <label
+                                class="form-check-label"
+                                for="et0_fao_evapotranspiration_hourly"
+                                >Reference Evapotranspiration (ET₀)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="vapour_pressure_deficit"
+                                id="vapour_pressure_deficit_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="vapour_pressure_deficit_hourly"
+                                >Vapour Pressure Deficit</label
+                            >
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="wind_speed_10m"
+                                id="wind_speed_10m_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="wind_speed_10m_hourly"
+                                >Wind Speed (10 m)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="wind_speed_80m"
+                                id="wind_speed_80m_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="wind_speed_80m_hourly"
+                                >Wind Speed (80 m)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="wind_speed_120m"
+                                id="wind_speed_120m_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="wind_speed_120m_hourly"
+                                >Wind Speed (120 m)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="wind_speed_180m"
+                                id="wind_speed_180m_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="wind_speed_180m_hourly"
+                                >Wind Speed (180 m)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="wind_direction_10m"
+                                id="wind_direction_10m_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="wind_direction_10m_hourly"
+                                >Wind Direction (10 m)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="wind_direction_80m"
+                                id="wind_direction_80m_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="wind_direction_80m_hourly"
+                                >Wind Direction (80 m)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="wind_direction_120m"
+                                id="wind_direction_120m_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="wind_direction_120m_hourly"
+                                >Wind Direction (120 m)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="wind_direction_180m"
+                                id="wind_direction_180m_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="wind_direction_180m_hourly"
+                                >Wind Direction (180 m)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="wind_gusts_10m"
+                                id="wind_gusts_10m_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="wind_gusts_10m_hourly"
+                                >Wind Gusts (10 m)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="temperature_80m"
+                                id="temperature_80m_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="temperature_80m_hourly"
+                                >Temperature (80 m)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="temperature_120m"
+                                id="temperature_120m_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="temperature_120m_hourly"
+                                >Temperature (120 m)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="temperature_180m"
+                                id="temperature_180m_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="temperature_180m_hourly"
+                                >Temperature (180 m)</label
+                            >
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="soil_temperature_0cm"
+                                id="soil_temperature_0cm_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="soil_temperature_0cm_hourly"
+                                >Soil Temperature (0 cm)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="soil_temperature_6cm"
+                                id="soil_temperature_6cm_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="soil_temperature_6cm_hourly"
+                                >Soil Temperature (6 cm)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="soil_temperature_18cm"
+                                id="soil_temperature_18cm_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="soil_temperature_18cm_hourly"
+                                >Soil Temperature (18 cm)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="soil_temperature_54cm"
+                                id="soil_temperature_54cm_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="soil_temperature_54cm_hourly"
+                                >Soil Temperature (54 cm)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="soil_moisture_0_to_1cm"
+                                id="soil_moisture_0_to_1cm_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="soil_moisture_0_to_1cm_hourly"
+                                >Soil Moisture (0-1 cm)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="soil_moisture_1_to_3cm"
+                                id="soil_moisture_1_to_3cm_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="soil_moisture_1_to_3cm_hourly"
+                                >Soil Moisture (1-3 cm)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="soil_moisture_3_to_9cm"
+                                id="soil_moisture_3_to_9cm_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="soil_moisture_3_to_9cm_hourly"
+                                >Soil Moisture (3-9 cm)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="soil_moisture_9_to_27cm"
+                                id="soil_moisture_9_to_27cm_hourly"
+                                name="hourly"
+                            />
+                            <label class="form-check-label" for="soil_moisture_9_to_27cm_hourly"
+                                >Soil Moisture (9-27 cm)</label
+                            >
+                        </div>
+                        <div class="form-check">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                value="soil_moisture_27_to_81cm"
+                                id="soil_moisture_27_to_81cm_hourly"
+                                name="hourly"
+                            />
+                            <label
+                                class="form-check-label"
+                                for="soil_moisture_27_to_81cm_hourly"
+                                >Soil Moisture (27-81 cm)</label
+                            >
+                            <div>
+        
+                                <button onclick="showView(1)">Vahvista</button>
+        
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>  
+        <form action="">
+            <label for="timespan">Select timespan</label>
+            <select name="timespan" id="timespan1" onchange="showView(1)">
+              <option value="0">live</option>
+              <option value="1">24h</option>
+              <option value="2">48h</option>
+              <option value="7">1 week</option>
+              <option value="30">1 month</option>
+            </select>
+          </form>
+        <h2 id="view1title"></h2>
+        </div>
+
+       
+        
+        <div id="view2" class="weather-view">
+            <form action="">
+                <label for="timespan">Select timespan</label>
+                <select name="timespan" id="timespan2" onchange="showView(2)">
+                  <option value="0">live</option>
+                  <option value="1">24h</option>
+                  <option value="2">48h</option>
+                  <option value="7">1 week</option>
+                  <option value="30">1 month</option>
+                </select>
+              </form>
+            <div class="statistics-container">
+                <div class="statistics-box" id="view2-statistics"></div>
+                <canvas id="view2-chart"></canvas>
+            </div>
+        </div>
+    
+        <div id="view3" class="weather-view">
+            <form action="">
+                <label for="timespan">Select timespan</label>
+                <select name="timespan" id="timespan3" onchange="showView(3)">
+                  <option value="0">live</option>
+                  <option value="1">24h</option>
+                  <option value="2">48h</option>
+                  <option value="7">1 week</option>
+                  <option value="30">1 month</option>
+                </select>
+              </form>
+            <div class="statistics-container">
+                <div class="statistics-box" id="view3-statistics"></div>
+                <canvas id="view3-chart"></canvas>
+            </div>
+        </div>
+    </main>
+    
+
+    
+</body>
+</html>
+    

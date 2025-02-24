@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li button {
+    background-color: #555;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.weather-view {
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.weather-view {
+    display: flex;
+    flex-direction: column;
+}
+
+.weather-view .weather-value {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.weather-view.active {
+    display: block;
+}
+
+.statistics-box {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 20px; /* Add some space between views */
+    order: -1; /* This places the statistics box before the chart in the flex order */
+    
+}
+
+.weatherVariables {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 20px; /* Add some space between views */
+    order: -1; /* This places the statistics box before the chart in the flex order */
+    
+}
+
+.statistics-container {
+    display: flex;
+    flex-direction: column;
+}
+
+canvas {
+    margin-top: 20px; /* Adjust the margin top value as needed */
+}
+
