@@ -1,0 +1,2 @@
+# Weather-dashboard
+Säädata paneeli
