@@ -281,3 +281,7 @@ function destroyChart(canvasId) {
     const canvas = document.getElementById(canvasId);
     Chart.getChart(canvas)?.destroy();
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    showView(1);
+  });
