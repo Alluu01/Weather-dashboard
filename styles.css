@@ -70,7 +70,7 @@ nav ul li button {
 }
 
 .weatherVariables {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(100, 100, 100, 0.8);
     padding: 10px;
     box-sizing: border-box;
     margin-bottom: 20px; /* Add some space between views */
@@ -87,3 +87,24 @@ canvas {
     margin-top: 20px; /* Adjust the margin top value as needed */
 }
 
+.col-md-3 {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 50px;
+    padding: 10px;
+}
+/* Style for each grid item */
+.form-check {
+    background-color: #e0e0e0;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+  }
+  
+  /* Optional: Style the input buttons */
+   .form-check-input {
+    background-color: #e0e0e0;
+    width: 66px;
+    padding: 5px;
+    font-size: 14px;
+  }
